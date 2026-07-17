@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javiita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <!-- Antes del </body> -->
+    <div class="music-player" id="musicPlayer">
+      <button class="player-toggle" id="playerToggle" onclick="togglePlayer()">🎵</button>
+
+      <div class="player-body" id="playerBody">
+
+        <!-- Subtítulos -->
+        <div class="lyrics-box" id="lyricsBox">
+          <span id="lyricsLine">♪</span>
+        </div>
+
+        <!-- Info canción -->
+        <div class="player-song">
+          <span class="song-title" id="songTitle">Canción 1</span>
+          <span class="song-artist" id="songArtist">Artista</span>
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-wrap">
+          <span id="timeNow">0:00</span>
+          <input type="range" id="progressBar" min="0" max="100" value="0"
+                 oninput="seekSong(this.value)">
+          <span id="timeTotal">0:00</span>
+        </div>
+
+        <!-- Controles + Volumen -->
+        <div class="bottom-row">
+          <div class="player-controls">
+            <button onclick="prevSong()">⏮</button>
+            <button id="playBtn" onclick="togglePlay()">▶</button>
+            <button onclick="nextSong()">⏭</button>
+          </div>
+          <div class="volume-wrap">
+            <span class="vol-icon">🔊</span>
+            <input type="range" id="volumeSlider" class="volume-vertical"
+                   min="0" max="1" step="0.01" value="0.5"
+                   oninput="setVolume(this.value)">
+            <span class="vol-icon">🔇</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+<body>
+
+    <!-- Navegación -->
+    <nav class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSection(0)" title="Inicio"></div>
+        <div class="nav-dot" onclick="scrollToSection(1)" title="Cuando nos conocimos"></div>
+        <div class="nav-dot" onclick="scrollToSection(2)" title="Cosas que amo de ti"></div>
+        <div class="nav-dot" onclick="scrollToSection(3)" title="Poemas"></div>
+        <div class="nav-dot" onclick="scrollToSection(4)" title="Nuestra historia"></div>
+        <div class="nav-dot" onclick="scrollToSection(5)" title="Por qué eres única"></div>
+        <div class="nav-dot" onclick="scrollToSection(6)" title="Para ti"></div>
+    </nav>
+
+    <!-- Primera Sección -->
+    <section class="section section--first" id="1">
+
+        <span class="cover-deco tl">✿</span>
+        <span class="cover-deco tr">❀</span>
+        <span class="cover-deco bl">❁</span>
+        <span class="cover-deco br">✾</span>
+
+        <div class="card-box">
+            <div class="card-page">
+                <h2>❁ Hola Javiita ❁</h2>
+                <p>
+                    Nos conocimos hace ya bastante, mucho tiempo, tenía <span> 14 tú 16</span>, sé que no nos llevamos medio bien
+                    al principio de todo, pero se que desde que te conocí te me hiciste interasante, alguien que siempre
+                    tiene algo interesante de decir, contar con una elocuencia poco vista, me encanta escucharte hablar,
+                    ya lo había dicho alguna vez, pero no me cansaré de hacerlo.
+                </p>
+
+                <p>
+                    Estó es algo de lo poco que puedo hacer para tí, esto no representa ni la más minima cantidad del
+                    amor que siento por ti, es una pequeña recopilación de poemas, historias, cosas que nos pasarón,
+                    cosas que me contaste y aun me acuerdo porque cada cosa por más minima que sea siempre la recuerdo,
+                    entonces esto es eso, para ti, y solo para ti.
+                </p>
+
+                <p>
+                    A veces pienso y siento que no doy lo suficiente de mi, y concuerdo, pero por ahora no puedo hacer mucho,
+                    casi no tengo tiempo, mientras tanto tú estás ahí, y me gusta que estes ahí, me hace sentir muy bien que
+                    siempre que hablo contigo todo fluya de una manera tan especial y suave que me gusta, me gustan tus fotos
+                    fotos de tí, <span><strong>recuerdo la foto de tí de pequeña, hermoso, pero tambien me gusta la tú de ahora, una bella mujer,
+                    excelente chica, hija, novia, amiga.</strong></span>
+                </p>
+
+                <p>
+                    Lo siento si a veces no te digo las cosas que me pasan, pero es que a veces no se ni como decirlo, no se las
+                    palabras correctas para ello, y te pido perdón, perdón si te hice dudar de si tu amor era correspondido, si te
+                    hice creer en algún momento que me aburrias o me molestabas, no fue, no era, ni nunca sera mi intención, a veces
+                    siento que no me entiendo ni a mi mismo, por lo cuál no te pido que lo hagas, sino mas que estes ahí conmigo.
+                </p>
+            </div>
+        </div>
+
+        <div class="scroll-hint">↓ Sigue leyendo</div>
+    </section>
+
+        <!-- ── SECCIÓN 2: CALENDARIO ── -->
+    <section class="section section--second" id="s2">
+
+      <div class="section-title reveal">El día que todo empezó</div>
+      <p class="section-sub reveal reveal-delay-1">Aún me acuerdo de cada detalle de ese día.</p>
+      <div class="calendar-wrap reveal reveal-delay-2">
+        <div class="cal-month">Agosto 2024</div>
+        <div class="cal-grid">
+          <div class="cal-header">L</div>
+          <div class="cal-header">M</div>
+          <div class="cal-header">M</div>
+          <div class="cal-header">J</div>
+          <div class="cal-header">V</div>
+          <div class="cal-header">S</div>
+          <div class="cal-header">D</div>
+          <!-- Week 1 -->
+          <div class="cal-day empty"></div>
+          <div class="cal-day empty"></div>
+          <div class="cal-day empty"></div>
+          <div class="cal-day">1</div>
+          <div class="cal-day">2</div>
+          <div class="cal-day">3</div>
+          <div class="cal-day">4</div>
+          <!-- Week 2 -->
+          <div class="cal-day">5</div>
+          <div class="cal-day">6</div>
+          <div class="cal-day">7</div>
+          <div class="cal-day">8</div>
+          <div class="cal-day">9</div>
+          <div class="cal-day special">10</div>
+          <div class="cal-day">11</div>
+          <!-- Week 3 -->
+          <div class="cal-day">12</div>
+          <div class="cal-day">13</div>
+          <div class="cal-day">14</div>
+          <div class="cal-day">15</div>
+          <div class="cal-day">16</div>
+          <div class="cal-day">17</div>
+          <div class="cal-day">18</div>
+          <!-- Week 4 -->
+          <div class="cal-day">19</div>
+          <div class="cal-day">20</div>
+          <div class="cal-day">21</div>
+          <div class="cal-day">22</div>
+          <div class="cal-day">23</div>
+          <div class="cal-day">24</div>
+          <div class="cal-day">25</div>
+          <!-- Week 5 -->
+          <div class="cal-day">26</div>
+          <div class="cal-day">27</div>
+          <div class="cal-day">28</div>
+          <div class="cal-day">29</div>
+          <div class="cal-day">30</div>
+          <div class="cal-day">31</div>
+          <div class="cal-day empty"></div>
+        </div>
+        <p class="cal-note">El día <strong>10</strong> fue el primero de muchos.</p>
+        <div class="time-bubble">🕛 Cerca del mediodía</div>
+      </div>
+    </section>
+
+    <!-- ── SECCIÓN 3: COSAS QUE AMO DE TI ── -->
+    <section class="section section--third" id="s3">
+      <div class="section-title reveal">Cosas que amo de ti</div>
+      <p class="section-sub reveal reveal-delay-1">Tengo demasiadas para ponerlas todas de un jalón.</p>
+
+      <!-- El contenido real va en script.js, dentro del array "reasons" -->
+      <div class="deck-wrap reveal reveal-delay-2" id="reasonsDeck">
+        <div class="deck-count" id="reasonsCount">1 / 1</div>
+        <div class="deck-card" id="reasonsCard">Cargando...</div>
+        <div class="deck-actions">
+          <button class="deck-btn deck-btn--main" onclick="drawReason()">Otra ✨</button>
+          <button class="deck-btn deck-btn--ghost" onclick="toggleReasonsList()">Ver todas</button>
+        </div>
+        <div class="deck-list hidden" id="reasonsList"></div>
+      </div>
+    </section>
+    <!-- ── SECCIÓN 4: POEMAS ── -->
+    <section class="section section--fourth" id="s4">
+      <div class="section-title reveal">Poemas</div>
+      <p class="section-sub reveal reveal-delay-1">Palabras que intentan alcanzar lo que siento.</p>
+
+      <!-- PERSONALIZA AQUÍ: reemplaza el poema y usa los botones para navegar entre varios -->
+      <div class="poem-wrap reveal reveal-delay-2" id="poemWrap">
+        <div class="poem-index" id="poemIndex">1 / 1</div>
+        <h3 class="poem-title" id="poemTitle">Sin título</h3>
+        <p class="poem-text" id="poemText">
+          Escribe aquí tu poema,<br>
+          línea por línea,<br>
+          como quieras que se lea,<br>
+          despacio, sin prisa.
+        </p>
+        <div class="poem-nav">
+          <button onclick="prevPoem()">‹</button>
+          <button onclick="nextPoem()">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECCIÓN 5: NUESTRA HISTORIA ── -->
+    <section class="section section--fifth" id="s5">
+      <div class="section-title reveal">Nuestra historia</div>
+      <p class="section-sub reveal reveal-delay-1">Cada capítulo, a tu ritmo.</p>
+
+      <!-- El contenido real va en script.js, dentro del array "stories" -->
+      <div class="story-layout reveal reveal-delay-2">
+        <div class="story-menu" id="storyMenu"></div>
+        <div class="story-viewer">
+          <span class="story-chapter" id="storyChapter">Capítulo 1</span>
+          <span class="story-date" id="storyDate"></span>
+          <h3 class="story-title" id="storyTitle"></h3>
+          <p class="story-text" id="storyText"></p>
+          <div class="story-nav">
+            <button onclick="prevStory()">‹ Anterior</button>
+            <button onclick="nextStory()">Siguiente ›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECCIÓN 6: POR QUÉ ERES ÚNICA ── -->
+    <section class="section section--sixth" id="s6">
+      <div class="section-title reveal">Por qué eres única</div>
+      <p class="section-sub reveal reveal-delay-1">No hay nadie más como tú, y esto es apenas una prueba.</p>
+
+      <!-- El contenido real va en script.js, dentro del array "uniqueReasons" -->
+      <div class="deck-wrap deck-wrap--alt reveal reveal-delay-2" id="uniqueDeck">
+        <div class="deck-count" id="uniqueCount">1 / 1</div>
+        <div class="deck-card" id="uniqueCard">Cargando...</div>
+        <div class="deck-actions">
+          <button class="deck-btn deck-btn--main" onclick="drawUnique()">Otra ✨</button>
+          <button class="deck-btn deck-btn--ghost" onclick="toggleUniqueList()">Ver todas</button>
+        </div>
+        <div class="deck-list hidden" id="uniqueList"></div>
+      </div>
+    </section>
+
+    <!-- ── SECCIÓN 7: PARA TI (dedicatoria) ── -->
+    <section class="section section--seventh" id="s7">
+      <span class="cover-deco tl">✿</span>
+      <span class="cover-deco br">❀</span>
+
+      <div class="section-title reveal">Para ti</div>
+      <p class="section-sub reveal reveal-delay-1">Esto es lo último, pero no lo menos importante.</p>
+
+      <!-- PERSONALIZA AQUÍ: cambia el nombre de la canción, película y juego que le dedicas -->
+      <div class="dedication-wrap reveal reveal-delay-2">
+        <div class="dedication-item">
+          <span class="dedication-label">Una canción</span>
+          <span class="dedication-value">One & Onle - Oliver Tree</span>
+          <p>Está canción la elegí porque me recuerda lo especial que eres para mí. Entre todas las pas personas que he conocido
+            tú eres esa unica persona que cambió mi forma de ver muchas cosas. Cada vez que la escucho me recuerda y pienso en tí.
+          </p>
+        </div>
+        <div class="dedication-item">
+          <span class="dedication-label">Una película</span>
+          <span class="dedication-value">Your name</span>
+          <p>Está pelicula la elegí porque habla de dos personas unidas a la distancia, algo dificil de explicar. Me gusta pensar que, sin
+            importar la distancia o el tiempo, siempre hay personas destinadas a encontrarse.
+          </p>
+        </div>
+        <div class="dedication-item">
+          <span class="dedication-label">Un juego</span>
+          <span class="dedication-value">It Takes Two</span>
+          <p>No lo he jugado, pero si se de que va... mas o menos, lo elegí porque me recuerda a que en una relacion todo se construye entre los dos.
+            con paciencia, comunicación y muchas risas. No se trara de siempre ser perfectos, sino de seguir avanzando juntos tomados de la mano.
+          </p>
+        </div>
+        <p class="dedication-note">Y así termina esto, aunque lo que siento por ti no termina aquí, seguíre mejorandolo, asi que si algunas cosas estaban mal, bueno, lo intente al menos.</p>
+      </div>
+    </section>
+
+    <!-- Script de navegación -->
+    <script src="script.js"></script>
+</body>
+</html>

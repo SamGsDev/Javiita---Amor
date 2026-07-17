@@ -1,0 +1,739 @@
+/* === Variables === */
+:root {
+    --pink-soft: #fce4ec;
+    --pink-mid: #f8bbd0;
+    --pink-deep: #e91e8c;
+    --pink-accent: #f06292;
+    --pink-dark: #c2185b;
+    --cream: #fff9f9;
+    --text-dark: #4a2040;
+    --text-mid: #7b4f6a;
+    --gold: #f9c74f;
+    --gold-soft: #fcdb8e;
+    --gold-dark: #f9c74f;
+    --title-size: 32px;
+    --font-size: 16px;
+}
+
+/* === Reset === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; user-select: none; }
+
+/* === Body === */
+body {
+    font-family: 'Playfair Display', serif;
+    background: var(--pink-soft);
+    font-size: var(--font-size);
+    color: var(--text-dark);
+    text-align: justify;
+}
+
+span{
+  font-weight: bolder;
+}
+
+/* === Navegación === */
+.nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 100;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pink-mid);
+    border: 2px solid var(--pink-accent);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-dot.active,
+.nav-dot:hover {
+    background: var(--pink-accent);
+    transform: scale(1.4);
+}
+
+/* === Sections === */
+section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* o row, según tu layout */
+    padding: 50px 25px;
+    overflow: hidden; /* evita scroll horizontal */
+}
+
+.section--body {
+    border: 3px solid var(--text-mid);
+    border-radius: 20px;
+    padding: 15px;
+    background: var(--pink-mid);
+}
+
+/* === Card === */
+.card-box {
+    width: min(80%, 700px)
+}
+
+.card-box h2{
+    text-align: center;
+}
+
+.card-box p{
+    margin: 20px;;
+}
+
+.card-page {
+    background: var(--cream);
+    border: 2px solid var(--pink-mid);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.scroll-hint{
+    position: absolute; bottom: 20px;
+    left: 50%; transform: translateX(-50%);
+    font-size: 20px; color: var(--pink-accent);
+    animation: bounce 2s infinite;
+    letter-spacing: 1px;
+}
+
+.cover-deco{
+    position: absolute;
+    font-size: 4rem;
+    opacity: 0.12;
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.cover-deco.tl { top: 5%; left: 5%; }
+.cover-deco.tr { top: 5%; right: 5%; }
+.cover-deco.bl { bottom: 5%; left: 5%; }
+.cover-deco.br { bottom: 5%; right: 5%; }
+
+
+/* ── SECTION 2: CALENDARIO ── */
+.section--second {
+  background: linear-gradient(135deg, #fff5f8, #fce4ec);
+  flex-direction: column; text-align: center;
+}
+
+.section-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+.section-sub {
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+.calendar-wrap {
+  background: white;
+  border-radius: 2rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 40px rgba(233,30,140,0.1), 0 2px 8px rgba(0,0,0,0.04);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+.calendar-wrap::before {
+  content: '🎀';
+  position: absolute; top: -1.2rem; right: 1.5rem;
+  font-size: 2rem;
+}
+
+.cal-month {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.cal-header {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  background: var(--pink-accent);
+  border-radius: 0.4rem;
+  padding: 0.3rem 0;
+  letter-spacing: 0.05em;
+}
+
+.cal-day {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  padding: 0.5rem 0.2rem;
+  border-radius: 0.5rem;
+  cursor: default;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.cal-day:hover { background: var(--pink-soft); }
+.cal-day.empty { color: transparent; }
+.cal-day.special {
+  background: var(--pink-deep);
+  color: white;
+  font-weight: 700;
+  border-radius: 50%;
+  position: relative;
+  animation: pulseHeart 2s infinite;
+  box-shadow: 0 0 0 4px var(--pink-mid);
+}
+@keyframes pulseHeart {
+  0%,100% { box-shadow: 0 0 0 4px var(--pink-mid); }
+  50% { box-shadow: 0 0 0 8px rgba(233,30,140,0.15); }
+}
+
+.cal-note {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  font-style: italic;
+}
+.cal-note strong { color: var(--pink-deep); }
+
+.time-bubble {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--pink-soft);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.8rem;
+  color: var(--pink-dark);
+  font-weight: 700;
+  border: 1.5px solid var(--pink-mid);
+}
+
+
+/* == Sección 2 - Por qué te amo? ==*/
+/* === Card === */
+.card-box {
+    width: min(80%, 700px)
+}
+
+.card-box h2{
+    text-align: center;
+}
+
+.card-box p{
+    margin: 20px;;
+}
+
+.card-page {
+    background: var(--cream);
+    border: 2px solid var(--pink-mid);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+
+
+/* === Mini Reproductor === */
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 200;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.player-toggle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(233,30,140,0.3);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.player-toggle:hover { transform: scale(1.1); }
+
+.player-body {
+  background: white;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 30px rgba(233,30,140,0.15);
+  border: 2px solid var(--pink-mid);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 260px;
+
+  overflow: hidden;
+  max-height: 400px;
+  opacity: 1;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+.player-body.hidden {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+/* Subtítulos */
+.lyrics-box {
+  background: var(--pink-soft);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#lyricsLine {
+  font-size: 0.8rem;
+  color: var(--pink-dark);
+  font-style: italic;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+/* Info */
+.player-song { display: flex; flex-direction: column; gap: 2px; }
+.song-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.song-artist { font-size: 0.75rem; color: var(--text-mid); font-style: italic; }
+
+/* Progreso */
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.progress-wrap span {
+  font-size: 0.7rem;
+  color: var(--text-mid);
+  min-width: 28px;
+}
+.progress-wrap input[type=range] {
+  flex: 1;
+  accent-color: var(--pink-deep);
+  cursor: pointer;
+  height: 4px;
+}
+
+/* Bottom row: controles + volumen */
+.bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.player-controls {
+  display: flex;
+  gap: 8px;
+}
+.player-controls button {
+  background: var(--pink-soft);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.player-controls button:hover { background: var(--pink-mid); }
+
+/* Volumen vertical */
+.volume-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.vol-icon { font-size: 0.75rem; }
+
+.volume-vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  appearance: slider-vertical;
+  -webkit-appearance: slider-vertical;
+  width: 6px;
+  height: 70px;
+  accent-color: var(--pink-deep);
+  cursor: pointer;
+}
+/* ══════════════════════════════════════ */
+/* ── SECCIÓN 3: COSAS QUE AMO DE TI ── */
+/* ══════════════════════════════════════ */
+.section--third {
+  flex-direction: column;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════ */
+/* ── SECCIÓN 4: POEMAS ── */
+/* ══════════════════════════════════════ */
+.section--fourth {
+  flex-direction: column;
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f8, #fce4ec);
+}
+
+.poem-wrap {
+  background: var(--cream);
+  border: 2px solid var(--pink-mid);
+  border-radius: 20px;
+  padding: 2.2rem 2rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+}
+
+.poem-index {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.poem-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: var(--pink-dark);
+  margin-bottom: 1rem;
+}
+
+.poem-text {
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--text-dark);
+  font-style: italic;
+  text-align: center;
+}
+
+.poem-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.poem-nav button {
+  background: var(--pink-soft);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--pink-dark);
+  transition: background 0.2s;
+}
+.poem-nav button:hover { background: var(--pink-mid); }
+
+/* ══════════════════════════════════════ */
+/* ── SECCIÓN 5: NUESTRA HISTORIA (capítulos) ── */
+/* ══════════════════════════════════════ */
+.section--fifth {
+  flex-direction: column;
+  text-align: center;
+}
+
+.story-layout {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 640px;
+  width: 100%;
+  text-align: left;
+  background: var(--cream);
+  border: 2px solid var(--pink-mid);
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+.story-menu {
+  flex: 0 0 150px;
+  background: var(--pink-soft);
+  padding: 1rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.story-menu-item {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 600;
+}
+.story-menu-item:hover {
+  background: var(--pink-mid);
+}
+.story-menu-item.active {
+  background: var(--pink-deep);
+  color: white;
+}
+
+.story-viewer {
+  flex: 1;
+  padding: 1.8rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.story-chapter {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pink-accent);
+  font-weight: 700;
+}
+.story-date {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+.story-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: var(--pink-dark);
+  margin: 0.4rem 0 0.8rem;
+}
+
+.story-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  flex: 1;
+}
+
+.story-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+}
+.story-nav button {
+  background: var(--pink-soft);
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--pink-dark);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.story-nav button:hover { background: var(--pink-mid); }
+
+@media (max-width: 560px) {
+  .story-layout { flex-direction: column; }
+  .story-menu {
+    flex-direction: row;
+    flex: none;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+  .story-menu-item { flex: 0 0 auto; white-space: nowrap; }
+}
+
+/* ══════════════════════════════════════ */
+/* ── SECCIÓN 6: POR QUÉ ERES ÚNICA ── */
+/* ══════════════════════════════════════ */
+.section--sixth {
+  flex-direction: column;
+  text-align: center;
+  background: linear-gradient(135deg, #fce4ec, #fff5f8);
+}
+
+/* ══════════════════════════════════════ */
+/* ── Mazo de tarjetas (usado en sección 3 y 6) ── */
+/* ══════════════════════════════════════ */
+.deck-wrap {
+  max-width: 420px;
+  width: 100%;
+}
+
+.deck-count {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+
+.deck-card {
+  background: var(--cream);
+  border: 2px solid var(--pink-mid);
+  border-radius: 20px;
+  padding: 2.4rem 1.8rem;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  font-style: italic;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 8px 25px rgba(233,30,140,0.08);
+}
+.deck-wrap--alt .deck-card { background: white; }
+
+.deck-card.flip {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.deck-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.deck-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.deck-btn:hover { transform: translateY(-2px); }
+
+.deck-btn--main {
+  background: var(--pink-deep);
+  color: white;
+}
+.deck-btn--ghost {
+  background: transparent;
+  color: var(--pink-dark);
+  border: 1.5px solid var(--pink-mid);
+}
+
+.deck-list {
+  margin-top: 1.2rem;
+  max-height: 320px;
+  overflow-y: auto;
+  background: white;
+  border: 1.5px solid var(--pink-mid);
+  border-radius: 14px;
+  padding: 0.6rem 1rem;
+  text-align: left;
+}
+.deck-list.hidden { display: none; }
+.deck-list-item {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--pink-mid);
+}
+.deck-list-item:last-child { border-bottom: none; }
+.deck-list-item::before {
+  content: attr(data-n) ". ";
+  color: var(--pink-accent);
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════ */
+/* ── SECCIÓN 7: PARA TI (dedicatoria) ── */
+/* ══════════════════════════════════════ */
+.section--seventh {
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+}
+
+.dedication-wrap {
+  background: var(--cream);
+  border: 2px solid var(--pink-mid);
+  border-radius: 20px;
+  padding: 2.2rem 2rem;
+  max-width: 460px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dedication-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--pink-mid);
+}
+.dedication-item:last-of-type { border-bottom: none; }
+
+.dedication-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pink-accent);
+  font-weight: 700;
+}
+
+.dedication-value {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.dedication-note {
+  margin-top: 0.8rem;
+  font-style: italic;
+  color: var(--text-mid);
+  font-size: 0.9rem;
+}
+
+/* ══════════════════════════════════════ */
+/* ── Animaciones de aparición al hacer scroll (reveal) ── */
+/* ══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1.visible { transition-delay: 0.1s; }
+.reveal-delay-2.visible { transition-delay: 0.2s; }
