@@ -125,6 +125,7 @@ section {
 .section--second {
   background: linear-gradient(135deg, #fff5f8, #fce4ec);
   flex-direction: column; text-align: center;
+  position: relative;
 }
 
 .section-title {
@@ -394,6 +395,14 @@ section {
 .section--third {
   flex-direction: column;
   text-align: center;
+  position: relative;
+}
+
+.section--third .section-title,
+.section--third .section-sub,
+.section--third .deck-wrap {
+  position: relative;
+  z-index: 1;
 }
 
 /* ══════════════════════════════════════ */
@@ -403,6 +412,7 @@ section {
   flex-direction: column;
   text-align: center;
   background: linear-gradient(135deg, #fff5f8, #fce4ec);
+  position: relative;
 }
 
 .poem-wrap {
@@ -462,6 +472,7 @@ section {
 .section--fifth {
   flex-direction: column;
   text-align: center;
+  position: relative;
 }
 
 .story-layout {
@@ -580,6 +591,14 @@ section {
   flex-direction: column;
   text-align: center;
   background: linear-gradient(135deg, #fce4ec, #fff5f8);
+  position: relative;
+}
+
+.section--sixth .section-title,
+.section--sixth .section-sub,
+.section--sixth .deck-wrap {
+  position: relative;
+  z-index: 1;
 }
 
 /* ══════════════════════════════════════ */
@@ -737,3 +756,110 @@ section {
 }
 .reveal-delay-1.visible { transition-delay: 0.1s; }
 .reveal-delay-2.visible { transition-delay: 0.2s; }
+
+/* Transición un poco más suave para el reveal general */
+.reveal {
+  transition: opacity 0.8s cubic-bezier(0.22, 0.9, 0.32, 1), transform 0.8s cubic-bezier(0.22, 0.9, 0.32, 1);
+}
+
+/* ══════════════════════════════════════ */
+/* ── Fondo flotante (secciones 3 y 6) ── */
+/* ══════════════════════════════════════ */
+.floating-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.float-item {
+  position: absolute;
+  bottom: -12%;
+  display: inline-block;
+  color: var(--pink-accent);
+  opacity: 0;
+  filter: drop-shadow(0 2px 6px rgba(233,30,140,0.15));
+  animation-name: floatUp;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.float-word {
+  position: absolute;
+  bottom: -12%;
+  white-space: nowrap;
+  opacity: 0;
+  animation-name: floatUp;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.65; }
+  50%  { transform: translateY(-55vh) translateX(18px) rotate(180deg); opacity: 1; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-115vh) translateX(-14px) rotate(360deg); opacity: 0; }
+}
+
+/* Variación de posición, tamaño, duración y retraso para cada pétalo */
+.float-item:nth-child(1)  { left: 4%;  font-size: 2.6rem; animation-duration: 15s; animation-delay: 0s; }
+.float-item:nth-child(2)  { left: 14%; font-size: 1.8rem; animation-duration: 19s; animation-delay: 2s;  color: var(--gold); }
+.float-item:nth-child(3)  { left: 24%; font-size: 2.2rem; animation-duration: 13s; animation-delay: 4.5s; }
+.float-item:nth-child(4)  { left: 36%; font-size: 1.6rem; animation-duration: 21s; animation-delay: 1s; }
+.float-item:nth-child(5)  { left: 50%; font-size: 2.4rem; animation-duration: 17s; animation-delay: 6s;  color: var(--pink-dark); }
+.float-item:nth-child(6)  { left: 62%; font-size: 1.9rem; animation-duration: 14s; animation-delay: 3s; }
+.float-item:nth-child(7)  { left: 74%; font-size: 2.3rem; animation-duration: 20s; animation-delay: 5.5s; color: var(--gold-soft); }
+.float-item:nth-child(8)  { left: 84%; font-size: 1.7rem; animation-duration: 16s; animation-delay: 0.5s; }
+.float-item:nth-child(9)  { left: 92%; font-size: 2rem;   animation-duration: 18s; animation-delay: 2.5s; }
+.float-item:nth-child(10) { left: 46%; font-size: 1.5rem; animation-duration: 22s; animation-delay: 3.8s; color: var(--pink-dark); }
+
+/* Paleta dorada para la sección "Por qué eres única" */
+.floating-bg--gold .float-item { color: var(--gold-dark); }
+.floating-bg--gold .float-item:nth-child(5),
+.floating-bg--gold .float-item:nth-child(10) { color: var(--pink-accent); }
+
+/* ══════════════════════════════════════ */
+/* ── Interacciones suaves extra (hover) ── */
+/* ══════════════════════════════════════ */
+.deck-card,
+.poem-wrap,
+.calendar-wrap,
+.story-layout,
+.dedication-wrap,
+.card-page {
+  transition: transform 0.35s cubic-bezier(0.22, 0.9, 0.32, 1), box-shadow 0.35s ease;
+}
+
+.deck-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(233,30,140,0.14);
+}
+
+.calendar-wrap:hover,
+.poem-wrap:hover,
+.dedication-wrap:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(233,30,140,0.12);
+}
+
+.calendar-wrap::before {
+  animation: gentleSway 3.5s ease-in-out infinite;
+}
+
+@keyframes gentleSway {
+  0%, 100% { transform: rotate(-6deg); }
+  50%      { transform: rotate(6deg); }
+}
+
+/* Suaviza el spin de las decoraciones de esquina para que respiren un poco */
+.cover-deco {
+  animation: spin 24s linear infinite, breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.1; }
+  50%      { opacity: 0.18; }
+}
