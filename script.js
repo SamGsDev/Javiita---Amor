@@ -226,7 +226,7 @@ renderPoem();
 //];
 
 const reasons = [
-  "aTu cara",
+  "Tu cara",
   "Tu sonrisa",
   "Tus ojos",
   "Tu risa",
@@ -1200,7 +1200,6 @@ const reasons = [
   "Me amas demasiado más de lo que yo a ti te podre amar, eres mi unico lugar seguro"
 ];
 
-
 const uniqueReasons = [
   "Tu forma de mirar el mundo lo vuelve más bonito",
   "Tienes una manera de existir que deja huella",
@@ -1448,3 +1447,26 @@ function nextStory() {
 
 renderStoryMenu();
 renderStory();
+
+function spawnFloatingWords(containerId, sourceArray, total = 10) {
+  const container = document.getElementById(containerId);
+  if (!container || !sourceArray.length) return;
+
+  const rand = (min, max) => Math.random() * (max - min) + min;
+
+  for (let i = 0; i < total; i++) {
+    const span = document.createElement('span');
+    span.className = 'float-word';
+    span.textContent = sourceArray[Math.floor(Math.random() * sourceArray.length)];
+
+    span.style.left = rand(2, 85) + '%';
+    span.style.fontSize = rand(1, 1.8).toFixed(2) + 'rem';
+    span.style.animationDuration = rand(13, 22) + 's';
+    span.style.animationDelay = rand(0, 8) + 's';
+
+    container.appendChild(span);
+  }
+}
+
+spawnFloatingWords('reasonsFloatBg', reasons, 10);
+spawnFloatingWords('uniqueFloatBg', uniqueReasons, 10);
