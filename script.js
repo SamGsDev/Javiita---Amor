@@ -183,15 +183,6 @@ const poems = [
           alguien, en algún rincón del mundo,<br>
           sonríe cada vez que piensa en ti.`
   },
-  {
-    title: "Sol",
-    text: `No eres el sol.<br>
-          El sol se esconde.<br>
-          No eres la luna.<br>
-          Ella cambia cada noche.<br>
-          Eres algo más extraño.<br>
-          Ese lugar al que vuelve mi corazón sin importar cuántas vueltas dé el mundo.`
-  },
 ];
 
 let currentPoem = 0;
