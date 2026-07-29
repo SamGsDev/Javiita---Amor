@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Querido Diario</title>
-    <link rel="stylesheet" href="">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview: Querido diario</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="01-page.css">
 </head>
 <body>
-    
+
+<div class="petals" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div id="cursorBall" aria-hidden="true"></div>
+
+<section>
+  <div class="section-title">❁ Querido diario ❁</div>
+  <p class="section-sub">Un pedacito de cada día, para ti.</p>
+
+  <div class="diary-layout">
+    <div class="diary-filter">
+      <h4>Filtrar</h4>
+      <label for="fYear">Año</label>
+      <select id="fYear"><option value="">Todos</option></select>
+      <label for="fMonth">Mes</label>
+      <select id="fMonth"><option value="">Todos</option></select>
+      <label for="fDate">Fecha exacta</label>
+      <input type="date" id="fDate">
+      <label for="fName">Buscar por nombre</label>
+      <input type="text" id="fName" placeholder="Título...">
+      <button onclick="resetFilters()">Limpiar filtros</button>
+    </div>
+
+    <div class="diary-grid" id="diaryGrid"></div>
+  </div>
+</section>
+
+<script src="01-page.js"></script>
+
 </body>
 </html>
