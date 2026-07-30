@@ -14,7 +14,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // === Contador desde que la conocí ===
 // PERSONALIZA AQUÍ: año, mes (0=enero, 7=agosto), día, hora, minuto
-const meetDate = new Date(2024, 7, 10, 12, 0, 0, 0);
+const meetDate = new Date(2024, 7, 10, 12, 45, 0, 0);
 
 function updateCounter() {
   const now = new Date();
